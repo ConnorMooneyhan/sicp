@@ -1,0 +1,22 @@
+(define (abs x) (if (< x 0) (- x) x))
+(define (avg x y) (/ (+ x y) 2.0))
+(define (<= x y) (or (< x y) (= x y)))
+(define (newton x guess)
+  (if (< (abs (- x (* guess guess))) 0.000001)
+    guess
+    (newton x (avg guess (/ x guess)))))
+(define (newton x guess)
+  (if (< (abs (- x (* guess guess))) 0.000001)
+    guess
+    (newton x (avg guess (/ x guess)))))
+(define (guess-round x guess)
+  (if (<= (abs (- x guess)) 0.5)
+    guess
+    (guess-round x (+ guess 1))))
+(define (round x)
+  (if (< x 0)
+    (- (guess-round (- x) 0))
+    (guess-round x 0)))
+(define (round-if-close x)
+  (if (< (abs (- x (round x))) 0.0001) (round x) x))
+(define (sqrt x) (if (< x 0) #f (round-if-close (newton x 1))))
