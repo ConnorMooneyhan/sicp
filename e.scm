@@ -1,0 +1,15 @@
+(define (cont-frac n d k)
+  (define (iter current acc)
+    (if (> current k)
+        acc
+        (iter (+ current 1) (/ (n current)
+                               (+ (d current) acc)))))
+  (iter 1 0))
+
+(define (e m)
+  (let ((n (lambda (x) 1.0))
+        (d (lambda (x)
+             (if (= (remainder x 3) 2)
+                 (* (/ 2 3) (+ x 1))
+                 1))))
+       (+ 2 (cont-frac n d m))))
